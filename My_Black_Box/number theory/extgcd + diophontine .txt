@@ -1,0 +1,16 @@
+
+def diophantine(a, b, c):
+    d = gcd(a,b) 
+    (x, y) = extgcd(a, b)  # extended_gcd(a,b) function implemented below
+    r = c // d
+    return (r * x, r * y)
+ 
+ 
+def extgcd(a, b):
+    if b == 0:
+        return 1, 0
+    y,x = extgcd(b, a % b)
+    y -= a // b * x
+    return x, y
+
+ 

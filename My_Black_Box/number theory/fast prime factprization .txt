@@ -1,0 +1,32 @@
+import math
+ 
+N = 10**6 + 20000
+# Create variable SPF to store smallest prime factor for each number
+spf = [0 for a in range(N)]
+# Calculating Smallest Prime Factor (SPF) for every number up to MAXN with Time Complexity as O (n log log n)
+def sieve():
+    spf[1] = 1
+    for a in range(2, N):
+        # Smallest prime factor for every number is marked to be itself
+        spf[a] = a
+    # Mark spf for even number as 2
+    for a in range(4, N, 2):
+        spf[a] = 2
+    sq =  int(math.sqrt(N)) + 1
+    for a in range(3,sq):
+        # checking if a is prime
+        if (spf[a] == a):
+            # Mark SPF of all numbers that are divisible by a
+            for b in range(a * a, N, a): 
+                # Checking if spf[b] is not marked earlier
+                if (spf[b] == b):
+                    spf[b] = a
+# Creating O (log n) function that returns prime factorisation by dividing the number by smallest prime factor (SPF) at each step
+def getFactorisation(i):
+    ret = list()
+    while (i != 1):
+        ret.append(spf[i])
+        i = i // spf[i]
+    return ret
+ 
+sieve()

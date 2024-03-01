@@ -1,0 +1,40 @@
+https://atcoder.jp/contests/cf17-final/tasks/cf17_final_d
+
+# ﷽
+import sys
+
+input = lambda: sys.stdin.buffer.readline().decode().rstrip()
+
+###############################################################################
+###############################################################################
+###############################################################################
+mod = 10**9 + 7
+
+def solve():
+    n = int(input())
+    arr = [] 
+    for _ in range(n) : 
+        arr.append(list(map(int,input().split()))) 
+    arr.sort(key= lambda x : x[0] + x[1])
+    dp = [float("inf") for _ in range(n+2)] 
+    dp[0] = 0 
+    ans = 0 
+    for i in range(1,n+1) : 
+        newdp = dp.copy() 
+        for j in range(1,i+1) : 
+            if dp[j-1] > arr[i-1][0] : 
+                newdp[j] = dp[j] 
+            else:
+                ans = max(ans,j)
+                newdp[j] = min(dp[j],dp[j-1]+arr[i-1][1]) 
+        dp = newdp.copy()
+    
+    print(ans)
+
+###############################################################################
+###############################################################################
+###############################################################################
+ 
+# for t in range(int(input())):
+    # case(t+1)
+solve()

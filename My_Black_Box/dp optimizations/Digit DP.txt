@@ -1,0 +1,30 @@
+def f(lim,low,i,t1,t2,suma,num) : 
+    if i >= len(lim) : 
+        return int(suma == num == 0)
+    ans = 0
+    a = 0 if t2 else int(low[i])
+    b = 10 if t1 else int(lim[i]) + 1 
+    if (i,t1,t2,suma,num) in memo : 
+        return memo[i,t1,t2,suma,num]
+    #### change here : 
+    d = 10**(len(lim) - i - 1)
+    for k in range(a,b ) : 
+        nt1 = t1 | (k != int(lim[i]))
+        # print(i,k,nt1)
+        nt2 = t2 | (k != int(low[i]))
+        ans += ( f(lim,low,i+1,nt1,nt2,(suma+k)%K,(num+(d*k))%K))
+    ####
+    memo[i,t1,t2,suma,(num)] = ans
+    return ans
+
+def solve():
+    global memo  ,K
+    memo = {}
+    a,b,K = list(map(int,input().split()))
+    a = str(a)
+    b = str(b) 
+    a = "0"*(len(b)-len(a)) + a 
+    ans = 0
+    if K <= 81 :
+        ans = ((f((b),(a),0,0,0,0,0)))
+    fbo(t,ans)
