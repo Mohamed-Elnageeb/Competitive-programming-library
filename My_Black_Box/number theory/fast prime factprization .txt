@@ -1,6 +1,6 @@
 import math
  
-N = 10**6 + 20000
+N = 10**7 + 20000
 # Create variable SPF to store smallest prime factor for each number
 spf = [0 for a in range(N)]
 # Calculating Smallest Prime Factor (SPF) for every number up to MAXN with Time Complexity as O (n log log n)
@@ -30,3 +30,21 @@ def getFactorisation(i):
     return ret
  
 sieve()
+
+def D(n) : 
+    g = getFactorisation(n) 
+    c = Counter(g) 
+    g = [(k,v) for k,v in c.items() ]
+    ans = [] 
+    q = [(1,0)] 
+
+    while q : 
+        num,i = q.pop() 
+        if i == len(g) : 
+            ans.append(num) 
+            continue
+        k = 1
+        for j in range(1+g[i][1]) : 
+            q.append((num*k,i+1))
+            k *= g[i][0]
+    return ans
